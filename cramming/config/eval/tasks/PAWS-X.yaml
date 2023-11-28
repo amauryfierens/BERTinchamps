@@ -1,0 +1,4 @@
+PAWS-X:
+  collection: flue
+  regression: False
+  structure: [sentence1, sentence2]

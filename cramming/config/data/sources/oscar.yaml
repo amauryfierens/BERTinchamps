@@ -1,0 +1,8 @@
+oscar:
+  provider: huggingface
+  name: oscar-corpus/OSCAR-2301
+  language: fr
+  split: train
+  concatenate_successive_entries: 0
+  streaming: true
+  max_size: 37580963840  # 35 GB

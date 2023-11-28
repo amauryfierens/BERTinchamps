@@ -1,0 +1,4 @@
+XNLI:
+  collection: flue
+  regression: False
+  structure: [premise, hypo]
