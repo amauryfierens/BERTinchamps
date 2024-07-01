@@ -1,8 +1,8 @@
-# BERTinchamps extension README
+# BERTinchamps extension README by Amaury Fierens and Sébastien Jodogne
 
 
 
-# Cramming original README by Lucas Geiping et Al.
+# Cramming original README by Jonas Geiping and Tom Goldstein
 
 ## Cramming Language Model (Pretraining)
 
