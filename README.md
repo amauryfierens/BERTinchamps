@@ -2,7 +2,7 @@
 
 
 
-# Cramming original README
+# Cramming original README by Lucas Geiping et Al.
 
 ## Cramming Language Model (Pretraining)
 
