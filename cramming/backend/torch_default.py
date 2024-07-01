@@ -74,17 +74,25 @@ class TorchEngineMinimal(torch.nn.Module):
         self.current_seq_length = seq_length
 
         # Mixed Precision:
+        if len(setup) > 1:
+            setup = setup[0]
         enabled = self.cfg_impl.mixed_precision if setup["device"].type != "cpu" else False
+        
         # Modules like LN are unsupported on CPU amp, so mixed precision args are disregarded on CPU
         # See https://pytorch.org/docs/stable/amp.html#cpu-op-specific-behavior and check for layer_norm
+        # enable_scaling = self.cfg_impl.grad_scaling and self.cfg_impl.mixed_precision and setup[0]["device"].type != "cpu"
         enable_scaling = self.cfg_impl.grad_scaling and self.cfg_impl.mixed_precision and setup["device"].type != "cpu"
+        
         self.scaler = torch.cuda.amp.GradScaler(enabled=enable_scaling)
+        # amp_dtype = getattr(torch, self.cfg_impl.mixed_precision_target_dtype) if setup[0]["device"].type != "cpu" else torch.bfloat16
         amp_dtype = getattr(torch, self.cfg_impl.mixed_precision_target_dtype) if setup["device"].type != "cpu" else torch.bfloat16
+        # self.amp_settings = dict(device_type=setup[0]["device"].type, enabled=enabled, dtype=amp_dtype)
         self.amp_settings = dict(device_type=setup["device"].type, enabled=enabled, dtype=amp_dtype)
 
         # Choose setup and move model
         self.setup = setup
-        model.to(**self.setup)
+        # model.to(**(self.setup[0]))
+        model.to(**(self.setup))
 
         from ..utils import flatten
 
@@ -129,6 +137,7 @@ class TorchEngineMinimal(torch.nn.Module):
     def to_device(self, batch: dict[str, torch.Tensor], keys: list[str] = ["input_ids", "labels"]):
         """Move batch of data into device memory."""
         device_batch = {
+            # k: v.to(device=self.setup[0]["device"], dtype=torch.long if k == "input_ids" else None, non_blocking=True)
             k: v.to(device=self.setup["device"], dtype=torch.long if k == "input_ids" else None, non_blocking=True)
             for k, v in batch.items()
             if k in keys  # Add more keywords here if needed
@@ -202,6 +211,8 @@ class TorchEngineMinimal(torch.nn.Module):
     def _init_distributed(self, model):
         model = torch.nn.parallel.DistributedDataParallel(
             model,
+            # device_ids=[self.setup[0]["device"]] if self.setup[0]["device"].type == "cuda" else None,
+            # output_device=self.setup[0]["device"] if self.setup[0]["device"].type == "cuda" else None,
             device_ids=[self.setup["device"]] if self.setup["device"].type == "cuda" else None,
             output_device=self.setup["device"] if self.setup["device"].type == "cuda" else None,
             broadcast_buffers=self.cfg_impl.broadcast_buffers,
@@ -232,10 +243,12 @@ class TorchEngineMinimal(torch.nn.Module):
             if file.endswith("-untrained"):
                 log.info("Loading NO pretrained model as a sanity check ...")
             else:
+                # self.model = self.model.from_pretrained(file.split("hf://")[1], config=cfg_arch).to(**self.setup[0])
                 self.model = self.model.from_pretrained(file.split("hf://")[1], config=cfg_arch).to(**self.setup)
                 # reinit optimizer:
                 self.optimizer, self.scheduler = _load_optimizer(self.model, self.cfg_train, self.cfg_impl)
         else:
+            # model_state = load_file(file, device=str(self.setup[0]["device"]))
             model_state = load_file(file, device=str(self.setup["device"]))
             # This loader includes a few legacy options:
             if "encoder.embedding.word_embedding.weight" not in model_state:
@@ -255,6 +268,7 @@ class TorchEngineMinimal(torch.nn.Module):
             except RuntimeError as e:
                 log.info(f"State dict difference is {str(e).split('Error(s) in loading state_dict for')[1]}... Ok?")
                 self.model.load_state_dict(sanitized_state, strict=False)
+            # self.model.to(**self.setup[0])
             self.model.to(**self.setup)
 
     def save_training_checkpoint(self, identifier="intermediate.pth", directory="", metadata=None):
@@ -475,9 +489,13 @@ class TorchEngineFull(TorchEngineMinimal):
 
         fmodel, params, buffers = functorch.make_functional_with_buffers(self.model)
 
+        # scales = [torch.tensor(1.0, **self.setup[0], requires_grad=True) for p in params]  # Modify all params by default
         scales = [torch.tensor(1.0, **self.setup, requires_grad=True) for p in params]  # Modify all params by default
         # Prepare for functional optimizer:
 
+        #exp_avgs = [torch.tensor(0.0, **self.setup[0]) for s in scales]
+        #exp_avg_sqs = [torch.tensor(0.0, **self.setup[0]) for s in scales]
+        #state_steps = [torch.tensor(0.0, **self.setup[0]) for s in scales]
         exp_avgs = [torch.tensor(0.0, **self.setup) for s in scales]
         exp_avg_sqs = [torch.tensor(0.0, **self.setup) for s in scales]
         state_steps = [torch.tensor(0.0, **self.setup) for s in scales]

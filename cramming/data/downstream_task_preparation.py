@@ -25,7 +25,8 @@ def prepare_task_dataloaders(tokenizer, cfg_eval, cfg_impl):
         log.info(f"Preparing data for task {task_details.collection}-{task_name}.")
         tasks[task_name]["details"] = task_details
         if task_name == "CLS":
-            raw_datasets = load_dataset("/globalscratch/ucl/ingi/amfieren/flue", task_name, cache_dir=cfg_impl.path)
+            # might need to change this path according to the configuration file flue.py
+            raw_datasets = load_dataset("tasks/flue.py", task_name, cache_dir=cfg_impl.path)
         else:
             raw_datasets = load_dataset(task_details.collection, task_name, cache_dir=cfg_impl.path)
             if "train_data_source" in task_details:  # some superGLUE tasks do not include train data
@@ -42,7 +43,7 @@ def prepare_task_dataloaders(tokenizer, cfg_eval, cfg_impl):
                 for i in raw_datasets["train"]:
                     if i["label"] not in label_list:
                         label_list.append(i["label"])
-                        
+                tasks[task_name]["num_classes"] = len(label_list)
             elif "label" in raw_datasets["train"].features:
                 
                 label_list = raw_datasets["train"].features["label"].names
@@ -103,7 +104,8 @@ def prepare_task_dataloaders(tokenizer, cfg_eval, cfg_impl):
             return result
 
         assert cfg_eval.evaluation_set in ["validation", "test"]
-        raw_datasets.pop("test") if (cfg_eval.evaluation_set != "test" and "test" in raw_datasets) else None
+        if task_name != "CLS":
+            raw_datasets.pop("test") if (cfg_eval.evaluation_set != "test" and "test" in raw_datasets) else None
         with main_process_first():
             processed_datasets = raw_datasets.map(
                 preprocess_function,

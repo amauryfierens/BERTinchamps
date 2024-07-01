@@ -1,9 +1,10 @@
 """Script to evaluate a pretrained model."""
-
+import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "0, 1"
 import torch
 import hydra
 
-
+from tqdm import tqdm
 import time
 import datetime
 import logging
@@ -28,6 +29,7 @@ def main_downstream_process(cfg, setup):
     # Start the clocks now:
     for task_name, task in tasks.items():
         cfg.eval.steps = len(task["trainloader"]) * cfg.eval.epochs
+        #print(task)
         log.info(f"Finetuning task {task_name} with {task['num_classes']} classes for {cfg.eval.steps} steps.")
         # Prepare model for finetuning:
         model = cramming.construct_model(cfg_arch, tokenizer.vocab_size, downstream_classes=task["num_classes"])
@@ -54,7 +56,7 @@ def main_downstream_process(cfg, setup):
         for epoch in range(cfg.eval.epochs):
             train_time = time.time()
 
-            for step, batch in enumerate(task["trainloader"]):
+            for step, batch in tqdm(enumerate(task["trainloader"]), total=len(task["trainloader"])):
                 # Heavy lifting is moved to engines
                 device_batch = model_engine.to_device(batch, keys=["input_ids", "labels", "attention_mask"])
                 loss = model_engine.step(device_batch)

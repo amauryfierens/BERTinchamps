@@ -387,7 +387,7 @@ class ScriptableLMForTokenClassification(PreTrainedModel):
     def __init__(self, config):
         super().__init__(config)
         self.cfg = OmegaConf.create(config.arch)
-
+        self.num_labels = self.cfg.num_labels
         self.encoder = ScriptableLM(config)
         self.head = torch.nn.Linear(self.cfg.classification_head.head_dim, self.num_labels)
 

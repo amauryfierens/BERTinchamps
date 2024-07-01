@@ -1,4 +1,4 @@
 CLS:
   collection: flue
   regression: False
-  structure: [text, null]
+  structure: ["text"]

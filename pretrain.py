@@ -2,7 +2,7 @@
 
 import torch
 import hydra
-
+from tqdm import tqdm
 import os
 import time
 import datetime
@@ -45,7 +45,7 @@ def main_training_process(cfg, setup):
     loss_vals = []
 
     # Launch training
-    for step, batch in enumerate(dataloader, initial_step + 1):
+    for step, batch in tqdm(enumerate(dataloader, initial_step + 1), total=len(dataloader)):
 
         # Heavy lifting is moved to engines
         device_batch = model_engine.to_device(batch)

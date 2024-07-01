@@ -19,7 +19,7 @@ static_graph: False # turned off for inductor
 foreach_optimizer: False
 
 # Compilation
-compile_torch: True
+compile_torch: False
 mode: # overwritten by manual selection of inductor variables below
 dynamic: False # this is a world of pain (when I last tested it, around torch2.0 release)
 fullgraph: True # why even compile when not compile everywhere :>

@@ -1,9 +1,15 @@
+# Data and models
+BERTinchamps*
 outputs
 tables/*/*.csv
 tables/*/*.csv#
 tables/*.csv
 tables/*.csv#
 tables/*.ods
+local_data/QUAEROFrenchMedCorpus
+local_data/tmp
+local_data/RTBF_corpus
+local_data/cls-*
 
 torch_compile_debug
 checkpoints
