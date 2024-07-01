@@ -1,3 +1,9 @@
+# BERTinchamps extension README
+
+
+
+# Cramming original README
+
 ## Cramming Language Model (Pretraining)
 
 This repository contains code to replicate our research described in "Cramming: Training a Language Model on a Single GPU in One Day". We experiment with language model pretraining a BERT-type model with limited compute, wondering "how bad can it really be"?
