@@ -1,5 +1,25 @@
 # BERTinchamps extension README by Amaury Fierens and Sébastien Jodogne
 
+## BERTinchamps
+
+This repository contains code to ensure reproducibility of our results described in "BERTinchamps: Cost-Effective In-House Training of Large Language Models in French". We try to replicate the Cramming formula described in the second part of this README for French. The idea is to determine if such low-budget pretraining can be useful for in-house pretraining in institutions such as hospitals or courts, that possesses private data that cannot be use outside the institutions due to European RGPD. 
+
+
+Here is the abstract of the paper:
+
+> Many in-house applications are envisioned for Large Language Models (LLMs) in several fields such as the medical field, in tasks such as the automated summary of the health condition of a patient, or the automated codification of electronic health records, but also as the legal field or even as Journalism. Even though the training of LLMs directly in-house is highly desirable to exploit the local data while avoiding data privacy concerns, this process requires a costly, complex computational infrastructure.
+
+> This paper explores the recent Cramming approach as a cost-effective way to train LLMs within institutions in one day using one GPU. We show that the Cramming approach that was originally designed for English can be transposed to French, that pre-training of this approach with in-house data does not degrade performances and that the resulting models can be successfully fine-tuned to healthcare-related tasks in the French language. This research opens the path to the creation of LLMs that are tailored to the specific needs of institutions that handle sensitive textual data in another language than English.
+
+## Datasets
+
+To exploit the code of the new tasks, some datasets are required to be added in the "local_data" folder:
+* cls-acl10-unprocessed: The CLS dataset from FLUE benchmark is available on Zenodo: https://zenodo.org/records/3251672 To be used, you need to decompress the tar.gz archive you obtain and place the "cls-acl10-unprocessed" folder directly in the "local_data" folder.
+* QUAEROFrenchMedCorpus: This corpus is available online at: https://quaerofrenchmed.limsi.fr/ It must be unzipped, then you rename "QUAEROFrenchMedCorpus" the "corpus" folder of the archive and you place this "QUAEROFrenchMedCorpus" folder inside "local_data" folder.
+* RTBF_corpus: This corpus is available online at: https://dataverse.uclouvain.be/dataset.xhtml?persistentId=doi:10.14428/DVN/PEVSSI You should get the rtbfCorpus.json.gz, decompress it and place it on a newly created "RTBF_corpus" folder inside the "local_data" folder. 
+
+## Run the tasks
+
 
 
 # Cramming original README by Jonas Geiping and Tom Goldstein
