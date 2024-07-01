@@ -24,6 +24,11 @@ rtbf_corpus:
     - "/home/fierens/wiki_dump_fr/oscar_17.json"
     - "/home/fierens/wiki_dump_fr/oscar_18.json"
     - "/home/fierens/wiki_dump_fr/oscar_19.json"
+    - "/home/fierens/wiki_dump_fr/oscar_20.json"
+    - "/home/fierens/wiki_dump_fr/oscar_21.json"
+    - "/home/fierens/wiki_dump_fr/oscar_22.json"
+    - "/home/fierens/wiki_dump_fr/oscar_23.json"
+    - "/home/fierens/wiki_dump_fr/oscar_24.json"
   split: train
   streaming: False
 
