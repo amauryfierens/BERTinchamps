@@ -20,6 +20,7 @@ To exploit the code of the new tasks, some datasets are required in the *local_d
 * **Testing_corpora**: This corpus is already available on the git. It contains training and testing datasets for both SIGNATURE and TOPIC tasks.  
 
 ## Run the tasks
+
 In this section are all the instructions needed to run the tasks. To make the whole project run, we suggest you to follow closely the instructions of Cramming orignal README (Go to section "Cramming original README by Jonas Geiping and Tom Goldstein").
 
 ### Pretraining settings
@@ -28,9 +29,14 @@ For the pretraining of both BERTinchamps *classic* and BERTinchamps *rtbf*, we d
 Here are the line of code we used to run both pretraining: 
 * **BERTinchamps *rtbf***: `python pretrain.py name=Bertinchamps-RTBFcorpus-oscarV3 arch=crammed-bert train=bert-o4 data=rtbf_corpus`
 * **BERTinchamps *classic***: `python pretrain.py name=Bertinchamps-OSCAR arch=crammed-bert train=bert-o4 data=oscar_json`
-  
+
+### Download the models
+
+To run the evaluation tasks and reproduce the experiments we performed, you can download both models at: https://dataverse.uclouvain.be/dataset.xhtml?persistentId=doi:10.14428/DVN/0OJU5N
+
 ### FLUE
 
+For the evaluation of both models on BERTinchamps 
 ### QUAEROFrenchMed: MEDLINE and EMEA
 
 ### RTBF: 
