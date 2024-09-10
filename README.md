@@ -13,13 +13,41 @@ Here is the abstract of the paper:
 
 ## Datasets
 
-To exploit the code of the new tasks, some datasets are required to be added in the "local_data" folder:
-* cls-acl10-unprocessed: The CLS dataset from FLUE benchmark is available on Zenodo: https://zenodo.org/records/3251672 To be used, you need to decompress the tar.gz archive you obtain and place the "cls-acl10-unprocessed" folder directly in the "local_data" folder.
-* QUAEROFrenchMedCorpus: This corpus is available online at: https://quaerofrenchmed.limsi.fr/ It must be unzipped, then you rename "QUAEROFrenchMedCorpus" the "corpus" folder of the archive and you place this "QUAEROFrenchMedCorpus" folder inside "local_data" folder.
-* RTBF_corpus: This corpus is available online at: https://dataverse.uclouvain.be/dataset.xhtml?persistentId=doi:10.14428/DVN/PEVSSI You should get the rtbfCorpus.json.gz, decompress it and place it on a newly created "RTBF_corpus" folder inside the "local_data" folder. 
+To exploit the code of the new tasks, some datasets are required in the *local_data* folder:
+* **cls-acl10-unprocessed**: The CLS dataset from FLUE benchmark is available on Zenodo: https://zenodo.org/records/3251672 To be used, you need to decompress the tar.gz archive you obtain and place the *cls-acl10-unprocessed* folder directly in the *local_data* folder.
+* **QUAEROFrenchMedCorpus**: This corpus is available online at: https://quaerofrenchmed.limsi.fr/ It must be unzipped, then you rename *QUAEROFrenchMedCorpus* the *corpus* folder of the archive and you place this *QUAEROFrenchMedCorpus* folder inside *local_data* folder. It contains both MEDLINE and EMEA datasets. 
+* **RTBF_corpus**: This corpus is available online at: https://dataverse.uclouvain.be/dataset.xhtml?persistentId=doi:10.14428/DVN/PEVSSI You can get the rtbfCorpus.json.gz, decompress it and place it on a newly created *RTBF_corpus* folder inside the *local_data* folder.
+* **Testing_corpora**: This corpus is already available on the git. It contains training and testing datasets for both SIGNATURE and TOPIC tasks.  
 
 ## Run the tasks
 
+In this section are all the instructions needed to run the tasks. To make the whole project run, we suggest you to follow closely the instructions of Cramming orignal README (Go to section "Cramming original README by Jonas Geiping and Tom Goldstein").
+
+### Pretraining settings
+
+For the pretraining of both BERTinchamps *classic* and BERTinchamps *rtbf*, we deactivated the compilation of torch as it wasn't working properly on our settings. 
+Here are the line of code we used to run both pretraining: 
+* **BERTinchamps *rtbf***: `python pretrain.py name=Bertinchamps-RTBFcorpus-oscarV3 arch=crammed-bert train=bert-o4 data=rtbf_corpus`
+* **BERTinchamps *classic***: `python pretrain.py name=Bertinchamps-OSCAR arch=crammed-bert train=bert-o4 data=oscar_json`
+
+### Download the models
+
+To run the evaluation tasks and reproduce the experiments we performed, you can download both models at: https://dataverse.uclouvain.be/dataset.xhtml?persistentId=doi:10.14428/DVN/0OJU5N
+
+### FLUE
+
+For the evaluation of both models on FLUE benchmark, two possibilities:
+* Evaluation on the 3 datasets from FLUE with the same hyperparameters:
+  * `python eval.py eval=FLUE name=the_name_of_one_of_the_models base_dir=/your/folder/where/models/are/stored eval.checkpoints=latest impl.microbatch_size=16 impl.shuffle_in_dataloader=True eval.scheduler=cosine-decay eval.epochs=5 eval.batch_size=16 eval.optim.lr=4e-5`
+* Evaluation of each dataset
+  * *CLS*: `python eval.py eval=CLS name=the_name_of_one_of_the_models base_dir=/your/folder/where/models/are/stored eval.checkpoints=latest impl.microbatch_size=16 impl.shuffle_in_dataloader=True eval.scheduler=cosine-decay eval.epochs=10 eval.batch_size=16 eval.optim.lr=4e-5`
+  * *PAWS-X*: `python eval.py eval=PAWS-X name=the_name_of_one_of_the_models base_dir=/your/folder/where/models/are/stored eval.checkpoints=latest impl.microbatch_size=16 impl.shuffle_in_dataloader=True eval.scheduler=cosine-decay eval.epochs=10 eval.batch_size=16 eval.optim.lr=4e-5`
+  * *XNLI*: `python eval.py eval=XNLI name=the_name_of_one_of_the_models base_dir=/your/folder/where/models/are/stored eval.checkpoints=latest impl.microbatch_size=16 impl.shuffle_in_dataloader=True eval.scheduler=cosine-decay eval.epochs=5 eval.batch_size=16 eval.optim.lr=4e-5`
+ 
+
+### QUAEROFrenchMed: MEDLINE and EMEA
+
+### RTBF: 
 
 
 # Cramming original README by Jonas Geiping and Tom Goldstein
