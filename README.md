@@ -27,7 +27,7 @@ In this section are all the instructions needed to run the tasks. To make the wh
 
 For the pretraining of both BERTinchamps *classic* and BERTinchamps *rtbf*, we deactivated the compilation of torch as it wasn't working properly on our settings. 
 Here are the line of code we used to run both pretraining: 
-* **BERTinchamps *rtbf***: `python pretrain.py name=Bertinchamps-RTBFcorpus-oscarV3 arch=crammed-bert train=bert-o4 data=rtbf_corpus`
+* **BERTinchamps *rtbf***: `python pretrain.py name=Bertinchamps-RTBFcorpus-oscar-definitive arch=crammed-bert train=bert-o4 data=rtbf_corpus`
 * **BERTinchamps *classic***: `python pretrain.py name=Bertinchamps-OSCAR arch=crammed-bert train=bert-o4 data=oscar_json`
 
 ### Download the models
