@@ -287,15 +287,17 @@ class Flue(datasets.GeneratorBasedBuilder):
             return [
                 datasets.SplitGenerator(
                     name=datasets.Split.TRAIN,
+                    # Load the data from the archive on the local data directory. The data path should be updated with respect to your local data directory.
+                    # Webis Cross-Lingual Sentiment Dataset 2010 (Webis-CLS-10) can be downloaded from https://zenodo.org/record/3251672 but request authorisation to access the data.
                     gen_kwargs={
-                        "data_file": ("local_data/cls-acl10-unprocessed", "fr"),
+                        "data_file": ("TODO/BERTinchamps/local_data/cls-acl10-unprocessed", "fr"),
                         "split": "train",
                     },
                 ),
                 datasets.SplitGenerator(
                     name=datasets.Split.TEST,
                     gen_kwargs={
-                        "data_file": ("local_data/cls-acl10-unprocessed", "fr"),
+                        "data_file": ("TODO/BERTinchamps/local_data/cls-acl10-unprocessed", "fr"),
                         "split": "test",
                     },
                 ),

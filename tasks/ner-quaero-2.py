@@ -21,16 +21,16 @@ from transformers import DataCollatorForTokenClassification
 from transformers import AutoModelForTokenClassification, TrainingArguments, Trainer
 from transformers import EarlyStoppingCallback, IntervalStrategy
 
-@hydra.main(config_path="cramming/config", config_name="cfg_medical", version_base="1.1")
+@hydra.main(config_path="../cramming/config", config_name="cfg_medical", version_base="1.1")
 def launch(cfg):
 
     task = "ner"
     batch_size = 8
     EPOCHS = 100
 
-    pre_path = ""
+    pre_path = "/TODO/BERTinchamps/"
     # Directory containing your JSON files => choices : MEDLINE_JSON, EMEA_JSON
-    dir_path = pre_path+'local_data/tmp/MEDLINE_JSON/'
+    dir_path = pre_path+'local_data/tmp/EMEA_JSON/'
 
     train_name = "train.json"
     val_name = "dev.json"
@@ -68,28 +68,15 @@ def launch(cfg):
     print(id2label)
 
     ######### BERTinchamps architecture loading => comment if you want to use a different architecture #########
-    
-    local_checkpoint_folder = os.path.join(pre_path,cfg.base_dir, cfg.name, "checkpoints") 
-
-    all_checkpoints = [f for f in os.listdir(local_checkpoint_folder)]
-    checkpoint_paths = [os.path.join(local_checkpoint_folder, c) for c in all_checkpoints]
-    checkpoint_name = max(checkpoint_paths, key=os.path.getmtime)
-    
-    tokenizer = AutoTokenizer.from_pretrained(checkpoint_name)
-
-    # Load config architecture
-    with open(os.path.join(checkpoint_name, "model_config.json"), "r") as file:
-        cfg_arch = OmegaConf.create(json.load(file))  # Could have done pure hydra here, but wanted interop
-    if cfg.eval.arch_modifications is not None:
-        cfg_arch = OmegaConf.merge(cfg_arch, cfg.eval.arch_modifications)
-    model_file = os.path.join(checkpoint_name, "model.pth")
-
+    tokenizer, cfg_arch, model_file = cramming.utils.find_pretrained_checkpoint(cfg)
 
     setup = cramming.utils.system_startup(cfg)
         
     thismodel = cramming.construct_model(cfg_arch, tokenizer.vocab_size, downstream_classes=len(label_list), for_token_classif=True)
     model_engine, _, _, _ = cramming.load_backend(thismodel, None, tokenizer, cfg.eval, cfg.impl, setup=setup)
-
+    # Comment if there is no checkpoints
+    model_engine.load_checkpoint(cfg_arch, model_file)
+    model_engine.train()
     model = model_engine.model
     #############################################################################################################
     

@@ -1,5 +1,5 @@
 #
-rtbf_corpus:
+oscar_json:
   provider: local
   file_type: json
   files:

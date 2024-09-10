@@ -66,7 +66,6 @@ def load_pretraining_corpus(cfg_data, cfg_impl):
                     num_threads=num_threads,
                     max_raw_chunk_size=cfg_impl.max_raw_chunk_size,
                 )
-
                 def save_corpus(path):
                     preprocessed_dataset.save_to_disk(path)
                     new_tokenizer.save_pretrained(os.path.join(path, "tokenizer"))
@@ -147,7 +146,7 @@ def preprocess_dataset(cfg_data, download_path, num_threads=1, max_raw_chunk_siz
             raw_dataset = datasets.load_dataset(details.file_type, data_files=details.files, streaming=details.streaming)[details.split]
         else:
             raise ValueError(f"Invalid data provider {details.provider} given.")
-
+        log.info(f"Loaded dataset {name} with {len(raw_dataset)} entries.")
         # remove columns that break later processing steps
         if details.remove_columns is not None:
             raw_dataset = raw_dataset.remove_columns(details.remove_columns)
@@ -170,10 +169,12 @@ def preprocess_dataset(cfg_data, download_path, num_threads=1, max_raw_chunk_siz
             if cfg_data.max_entries_in_raw_dataset < len(raw_dataset):
                 raw_dataset = raw_dataset.select(range(int(cfg_data.max_entries_in_raw_dataset)))
         # concatenate dataset that were cut into pieces that are too small
+        log.info(f"Concatenating entries in dataset {name}...")
         if details.concatenate_successive_entries > 0:
             raw_dataset = _concatenate_entries(raw_dataset, details.concatenate_successive_entries, num_threads=num_threads)
         raw_datasets += [raw_dataset]
-
+        log.info(f"Dataset {name} is now of size {len(raw_dataset)}.")
+        log.info(cfg_data.sources.items())
     # 2) Preprocess and tokenize
     print("PREPROCESS PHASE 2: preprocess and tokenize")
     try:

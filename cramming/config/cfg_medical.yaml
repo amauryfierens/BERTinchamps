@@ -10,7 +10,7 @@ defaults:
 wandb:
   project: cramming-eval
 
-base_dir: outputs
+base_dir: /TODO/BERTinchamps/outputs # Base directory for all outputs, to be completed by the user
 hydra:
   sweep:
     dir: ${base_dir}/${name}/downstream/${now:%Y-%m-%d}/${now:%H-%M-%S}

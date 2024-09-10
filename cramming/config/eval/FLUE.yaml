@@ -7,7 +7,7 @@ defaults:
       
 
 evaluation_set: validation # always keep this at validation except for the final run
-
+name: FLUE
 # checkpoint name:
 # This can be either "latest", or a reference to a specific checkpoint in a subfolder
 checkpoint: latest

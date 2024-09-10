@@ -10,7 +10,7 @@ defaults:
   - _self_
   - override hydra/job_logging: custom
 
-base_dir: outputs
+base_dir: /TODO/BERTinchamps/outputs # Base directory for all outputs, to be completed by the user
 hydra:
   sweep:
     dir: ${base_dir}/${name}/pretrain/${now:%Y-%m-%d}/${now:%H-%M-%S}
@@ -23,6 +23,6 @@ seed: # Optional: Set initial seed
 name: default # A name for this run [will be used for the summary table and outputs folder]
 
 # Total and central computation budget in hours:
-budget: 24
+budget: 24 
 # debug implementation by running every loop just once:
 dryrun: False

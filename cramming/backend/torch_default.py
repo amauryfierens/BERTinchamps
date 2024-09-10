@@ -74,7 +74,7 @@ class TorchEngineMinimal(torch.nn.Module):
         self.current_seq_length = seq_length
 
         # Mixed Precision:
-        if len(setup) > 1:
+        if isinstance(setup, tuple) and len(setup) > 1:
             setup = setup[0]
         enabled = self.cfg_impl.mixed_precision if setup["device"].type != "cpu" else False
         

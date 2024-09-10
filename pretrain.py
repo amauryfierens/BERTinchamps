@@ -68,7 +68,6 @@ def main_training_process(cfg, setup):
         if cfg.impl.save_intermediate_checkpoints and step % cfg.impl.save_every_nth_step == 0:
             if loss.detach().isfinite() and cramming.utils.is_main_process() and not cfg.dryrun:
                 model_engine.save_training_checkpoint(checkpoint_rendevous, metadata=dict(step=step, elapsed=time.time() - wallclock_timer))
-
         if not loss.detach().isfinite():
             training_allowed, no_recovery_necessary = engage_troubleshooting(
                 model_engine, step, training_allowed, no_recovery_necessary, cfg

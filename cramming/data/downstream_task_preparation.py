@@ -26,7 +26,7 @@ def prepare_task_dataloaders(tokenizer, cfg_eval, cfg_impl):
         tasks[task_name]["details"] = task_details
         if task_name == "CLS":
             # might need to change this path according to the configuration file flue.py
-            raw_datasets = load_dataset("tasks/flue.py", task_name, cache_dir=cfg_impl.path)
+            raw_datasets = load_dataset("../../../../../tasks/flue.py", task_name, cache_dir=cfg_impl.path)
         else:
             raw_datasets = load_dataset(task_details.collection, task_name, cache_dir=cfg_impl.path)
             if "train_data_source" in task_details:  # some superGLUE tasks do not include train data

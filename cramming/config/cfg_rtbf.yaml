@@ -10,7 +10,7 @@ defaults:
 wandb:
   project: cramming-eval
 
-base_dir: outputs
+base_dir: /TODO/BERTinchamps/outputs # Base directory for all outputs, to be completed by the user
 hydra:
   sweep:
     dir: ${base_dir}/${name}/downstream/${now:%Y-%m-%d}/${now:%H-%M-%S}
@@ -21,12 +21,13 @@ hydra:
 
 seed: # Optional: Set initial seed
 
+microbatch_size: 32
 # A name for this run [will draw the checkpoint from runs with this name
 # and use this name for the summary table and outputs folder]
 #name: Bertinchamps-RTBFcorpus-oscarV3
-name: Bertinchamps-OSCAR
-nbr: 0  # Number corresponding to the train and test file to use
-classic: True
+name: Bertinchamps-RTBFcorpus-oscar-definitive
+nbrs: [3]  # Number(s) corresponding to the train and test file to use for the RTBF testing corpora in local_data
+classic: False
 is_signature: False
 # debug implementation by running every loop just once:
 dryrun: False

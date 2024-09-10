@@ -10,7 +10,7 @@ local_data/QUAEROFrenchMedCorpus
 local_data/tmp
 local_data/RTBF_corpus
 local_data/cls-*
-
+local_data/OSCAR_30GB
 torch_compile_debug
 checkpoints
 wandb-metadata.json
