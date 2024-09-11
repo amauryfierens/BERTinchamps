@@ -28,8 +28,14 @@ In this section are all the instructions needed to run the tasks. To make the wh
 
 For the pretraining of both BERTinchamps *classic* and BERTinchamps *rtbf*, we deactivated the compilation of torch as it wasn't working properly on our settings. 
 Here are the line of code we used to run both pretraining: 
-* **BERTinchamps *rtbf***: `python pretrain.py name=Bertinchamps-RTBFcorpus-oscar-definitive arch=crammed-bert train=bert-o4 data=rtbf_corpus`
-* **BERTinchamps *classic***: `python pretrain.py name=Bertinchamps-OSCAR arch=crammed-bert train=bert-o4 data=oscar_json`
+* **BERTinchamps *rtbf***: 
+  ```
+  python pretrain.py name=Bertinchamps-RTBFcorpus-oscar-definitive arch=crammed-bert train=bert-o4 data=rtbf_corpus
+  ```
+* **BERTinchamps *classic***:
+  ```
+  python pretrain.py name=Bertinchamps-OSCAR arch=crammed-bert train=bert-o4 data=oscar_json
+  ```
 
 ### Download the models
 
@@ -43,9 +49,18 @@ For the evaluation of both models on FLUE benchmark, two possibilities:
   python eval.py eval=FLUE name=the_name_of_one_of_the_models base_dir=/your/folder/where/models/are/stored eval.checkpoints=latest impl.microbatch_size=16 impl.shuffle_in_dataloader=True eval.scheduler=cosine-decay eval.epochs=5 eval.batch_size=16 eval.optim.lr=4e-5
   ```
 * Evaluation of each dataset
-  * *CLS*: `python eval.py eval=CLS name=the_name_of_one_of_the_models base_dir=/your/folder/where/models/are/stored eval.checkpoints=latest impl.microbatch_size=16 impl.shuffle_in_dataloader=True eval.scheduler=cosine-decay eval.epochs=5 eval.batch_size=16 eval.optim.lr=4e-5`
-  * *PAWS-X*: `python eval.py eval=PAWS-X name=the_name_of_one_of_the_models base_dir=/your/folder/where/models/are/stored eval.checkpoints=latest impl.microbatch_size=16 impl.shuffle_in_dataloader=True eval.scheduler=cosine-decay eval.epochs=10 eval.batch_size=16 eval.optim.lr=4e-5`
-  * *XNLI*: `python eval.py eval=XNLI name=the_name_of_one_of_the_models base_dir=/your/folder/where/models/are/stored eval.checkpoints=latest impl.microbatch_size=16 impl.shuffle_in_dataloader=True eval.scheduler=cosine-decay eval.epochs=5 eval.batch_size=16 eval.optim.lr=4e-5`
+  * *CLS*:
+    ```
+    python eval.py eval=CLS name=the_name_of_one_of_the_models base_dir=/your/folder/where/models/are/stored eval.checkpoints=latest impl.microbatch_size=16 impl.shuffle_in_dataloader=True eval.scheduler=cosine-decay eval.epochs=5 eval.batch_size=16 eval.optim.lr=4e-5
+    ```
+  * *PAWS-X*:
+    ```
+    python eval.py eval=PAWS-X name=the_name_of_one_of_the_models base_dir=/your/folder/where/models/are/stored eval.checkpoints=latest impl.microbatch_size=16 impl.shuffle_in_dataloader=True eval.scheduler=cosine-decay eval.epochs=10 eval.batch_size=16 eval.optim.lr=4e-5
+    ```
+  * *XNLI*:
+    ```
+    python eval.py eval=XNLI name=the_name_of_one_of_the_models base_dir=/your/folder/where/models/are/stored eval.checkpoints=latest impl.microbatch_size=16 impl.shuffle_in_dataloader=True eval.scheduler=cosine-decay eval.epochs=5 eval.batch_size=16 eval.optim.lr=4e-5
+    ```
     
  The name of both BERTinchamps models are respectively *Bertinchamps-OSCAR* and *Bertinchamps-RTBFcorpus-oscar-definitive*.
 
