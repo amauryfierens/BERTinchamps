@@ -69,9 +69,13 @@ For the evaluation of both models on FLUE benchmark, two possibilities:
 
 For evaluation of both models on the two cutom tasks of the RTBF Corpus:
 * Evaluation on TOPIC:
-  * `python tasks/task_RTBF.py impl.microbatch_size=32 is_signature=False model=BERTinchamps name=the_name_of_one_of_the_models nbrs=[0,1,2,3,4]`
+  ```
+  python tasks/task_RTBF.py impl.microbatch_size=32 is_signature=False model=BERTinchamps name=the_name_of_one_of_the_models nbrs=[0,1,2,3,4]
+  ```
 * Evaluation on SIGNATURE:
-  * `python tasks/task_RTBF.py impl.microbatch_size=32 is_signature=True model=BERTinchamps name=the_name_of_one_of_the_models`
+  ```
+  python tasks/task_RTBF.py impl.microbatch_size=32 is_signature=True model=BERTinchamps name=the_name_of_one_of_the_models
+  ```
     
 The *nbrs* parameter corresponds to the file numbers that are to be used (each file corresponds to one signature/topic label with its own dataset). It ranges from 0 to 4.
 
@@ -83,11 +87,17 @@ For evaluation on CamemBERT for the comparison, you can update the lines above b
 
 For preprocessing of QUAEROFrenchMed Corpus and evaluation of both models on it:
 * Preprocessing of QUAEROFrenchMed:
-  * `python tasks/ner-quaero.py`
+  ```
+  python tasks/ner-quaero.py
+  ```
 * Evaluation on EMEA:
-  * `python tasks/ner-quaero-2.py impl.microbatch_size=32 quaero=EMEA model=BERTinchamps`
+  ```
+  python tasks/ner-quaero-2.py impl.microbatch_size=32 quaero=EMEA model=BERTinchamps
+  ```
 * Evaluation on MEDLINE
-  * `python tasks/ner-quaero-2.py impl.microbatch_size=32 quaero=MEDLINE model=BERTinchamps`
+  ```
+  python tasks/ner-quaero-2.py impl.microbatch_size=32 quaero=MEDLINE model=BERTinchamps
+  ```
     
 For evaluation on CamemBERT or DrBERT for the comparison, you can update the lines above by changing *model=CamemBERT* or *model=DrBERT*.
 
