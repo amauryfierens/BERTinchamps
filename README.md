@@ -62,7 +62,7 @@ For the evaluation of both models on FLUE benchmark, two possibilities:
     python eval.py eval=XNLI name=the_name_of_one_of_the_models base_dir=/your/folder/where/models/are/stored eval.checkpoints=latest impl.microbatch_size=16 impl.shuffle_in_dataloader=True eval.scheduler=cosine-decay eval.epochs=5 eval.batch_size=16 eval.optim.lr=4e-5
     ```
     
- The name of both BERTinchamps models are respectively *Bertinchamps-OSCAR* and *Bertinchamps-RTBFcorpus-oscar-definitive*.
+ The name of both BERTinchamps models are respectively `Bertinchamps-OSCAR` and `Bertinchamps-RTBFcorpus-oscar-definitive`.
 
 
 ### RTBF: TOPIC and SIGNATURE 
@@ -77,11 +77,11 @@ For evaluation of both models on the two cutom tasks of the RTBF Corpus:
   python tasks/task_RTBF.py impl.microbatch_size=32 is_signature=True model=BERTinchamps name=the_name_of_one_of_the_models
   ```
     
-The *nbrs* parameter corresponds to the file numbers that are to be used (each file corresponds to one signature/topic label with its own dataset). It ranges from 0 to 4.
+The `nbrs` parameter corresponds to the file numbers that are to be used (each file corresponds to one signature/topic label with its own dataset). It ranges from 0 to 4.
 
-The name of both BERTinchamps models are respectively *Bertinchamps-OSCAR* and *Bertinchamps-RTBFcorpus-oscar-definitive*.
+The name of both BERTinchamps models are respectively `Bertinchamps-OSCAR` and `Bertinchamps-RTBFcorpus-oscar-definitive`.
 
-For evaluation on CamemBERT for the comparison, you can update the lines above by changing *model=CamemBERT*.
+For evaluation on CamemBERT for the comparison, you can update the lines above by changing `model=CamemBERT`.
 
 ### QUAEROFrenchMed: MEDLINE and EMEA
 
@@ -99,7 +99,7 @@ For preprocessing of QUAEROFrenchMed Corpus and evaluation of both models on it:
   python tasks/ner-quaero-2.py impl.microbatch_size=32 quaero=MEDLINE model=BERTinchamps
   ```
     
-For evaluation on CamemBERT or DrBERT for the comparison, you can update the lines above by changing *model=CamemBERT* or *model=DrBERT*.
+For evaluation on CamemBERT or DrBERT for the comparison, you can update the lines above by changing `model=CamemBERT` or `model=DrBERT`.
 
 
 # Cramming original README by Jonas Geiping and Tom Goldstein
