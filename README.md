@@ -57,7 +57,9 @@ For evaluation of both models on the two cutom tasks of the RTBF Corpus:
   * `python tasks/task_RTBF.py impl.microbatch_size=32 is_signature=True model=BERTinchamps name=the_name_of_one_of_the_models`
     
 The *nbrs* parameter corresponds to the file numbers that are to be used (each file corresponds to one signature/topic label with its own dataset). It ranges from 0 to 4.
+
 The name of both BERTinchamps models are respectively *Bertinchamps-OSCAR* and *Bertinchamps-RTBFcorpus-oscar-definitive*.
+
 For evaluation on CamemBERT for the comparison, you can update the lines above by changing *model=CamemBERT*.
 
 ### QUAEROFrenchMed: MEDLINE and EMEA
