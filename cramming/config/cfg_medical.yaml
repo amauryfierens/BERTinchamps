@@ -24,6 +24,8 @@ seed: # Optional: Set initial seed
 # A name for this run [will draw the checkpoint from runs with this name
 # and use this name for the summary table and outputs folder]
 name: Bertinchamps-OSCAR
-
+# A parameter to be set to the name of the dataset to be used. Can be either 'EMEA' or 'MEDLINE'
+quaero: EMEA
+model: BERTinchamps
 # debug implementation by running every loop just once:
 dryrun: False

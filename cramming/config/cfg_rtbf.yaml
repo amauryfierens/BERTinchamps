@@ -26,8 +26,8 @@ microbatch_size: 32
 # and use this name for the summary table and outputs folder]
 #name: Bertinchamps-RTBFcorpus-oscarV3
 name: Bertinchamps-RTBFcorpus-oscar-definitive
-nbrs: [3]  # Number(s) corresponding to the train and test file to use for the RTBF testing corpora in local_data
-classic: False
+nbrs: [0,1,2,3,4]  # Number(s) corresponding to the train and test file to use for the RTBF testing corpora in local_data
+model: BERTinchamps
 is_signature: False
 # debug implementation by running every loop just once:
 dryrun: False
