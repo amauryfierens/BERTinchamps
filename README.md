@@ -2,7 +2,7 @@
 
 ## BERTinchamps
 
-This repository contains code to ensure reproducibility of our results described in "BERTinchamps: Cost-Effective In-House Training of Large Language Models in French". We try to replicate the Cramming formula described in the second part of this README for French. The idea is to determine if such low-budget pretraining can be useful for in-house pretraining in institutions such as hospitals or courts, that possesses private data that cannot be use outside the institutions due to European RGPD. 
+This repository contains code to ensure reproducibility of our results described in "BERTinchamps: Cost-Effective In-House Training of Large Language Models in French". We try to replicate the Cramming formula described in the second part of this README for French. The idea is to determine if such low-budget pretraining can be useful for in-house pretraining in institutions such as hospitals or courts, that possesses private data that cannot be used outside the institutions due to European RGPD. 
 
 
 Here is the abstract of the paper:
@@ -35,7 +35,7 @@ Here are the line of code we used to run both pretraining:
 
 To run the evaluation tasks and reproduce the experiments we performed, you can download both models at: https://dataverse.uclouvain.be/dataset.xhtml?persistentId=doi:10.14428/DVN/0OJU5N
 
-### FLUE
+### FLUE: CLS, PAWS-X and XNLI
 
 For the evaluation of both models on FLUE benchmark, two possibilities:
 * Evaluation on the 3 datasets from FLUE with the same hyperparameters:
@@ -44,7 +44,19 @@ For the evaluation of both models on FLUE benchmark, two possibilities:
   * *CLS*: `python eval.py eval=CLS name=the_name_of_one_of_the_models base_dir=/your/folder/where/models/are/stored eval.checkpoints=latest impl.microbatch_size=16 impl.shuffle_in_dataloader=True eval.scheduler=cosine-decay eval.epochs=5 eval.batch_size=16 eval.optim.lr=4e-5`
   * *PAWS-X*: `python eval.py eval=PAWS-X name=the_name_of_one_of_the_models base_dir=/your/folder/where/models/are/stored eval.checkpoints=latest impl.microbatch_size=16 impl.shuffle_in_dataloader=True eval.scheduler=cosine-decay eval.epochs=10 eval.batch_size=16 eval.optim.lr=4e-5`
   * *XNLI*: `python eval.py eval=XNLI name=the_name_of_one_of_the_models base_dir=/your/folder/where/models/are/stored eval.checkpoints=latest impl.microbatch_size=16 impl.shuffle_in_dataloader=True eval.scheduler=cosine-decay eval.epochs=5 eval.batch_size=16 eval.optim.lr=4e-5`
- 
+ The name of both BERTinchamps models are respectively *Bertinchamps-OSCAR* and *Bertinchamps-RTBFcorpus-oscar-definitive*.
+
+
+### RTBF: TOPIC and SIGNATURE 
+
+For evaluation of both models on the two cutom tasks of the RTBF Corpus:
+* Evaluation on TOPIC:
+  * `python tasks/task_RTBF.py impl.microbatch_size=32 is_signature=False model=BERTinchamps name=the_name_of_one_of_the_models nbrs=[0,1,2,3,4]`
+* Evaluation on SIGNATURE:
+  * `python tasks/task_RTBF.py impl.microbatch_size=32 is_signature=True model=BERTinchamps name=the_name_of_one_of_the_models`
+The *nbrs* parameter corresponds to the file numbers that are to be used (each file corresponds to one signature/topic label with its own dataset). It ranges from 0 to 4.
+The name of both BERTinchamps models are respectively *Bertinchamps-OSCAR* and *Bertinchamps-RTBFcorpus-oscar-definitive*.
+For evaluation on CamemBERT for the comparison, you can update the lines above by changing *model=CamemBERT*.
 
 ### QUAEROFrenchMed: MEDLINE and EMEA
 
@@ -52,10 +64,10 @@ For preprocessing of QUAEROFrenchMed Corpus and evaluation of both models on it:
 * Preprocessing of QUAEROFrenchMed:
   * `python tasks/ner-quaero.py`
 * Evaluation on EMEA:
-  * `python tasks/ner-quaero-2.py impl.microbatch_size=32 quaero=EMEA`
+  * `python tasks/ner-quaero-2.py impl.microbatch_size=32 quaero=EMEA model=BERTinchamps`
 * Evaluation on MEDLINE
-  * 
-### RTBF: 
+  * `python tasks/ner-quaero-2.py impl.microbatch_size=32 quaero=MEDLINE model=BERTinchamps`
+For evaluation on CamemBERT or DrBERT for the comparison, you can update the lines above by changing *model=CamemBERT* or *model=DrBERT*.
 
 
 # Cramming original README by Jonas Geiping and Tom Goldstein
