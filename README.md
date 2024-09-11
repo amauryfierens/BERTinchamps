@@ -12,6 +12,7 @@ Here is the abstract of the paper:
 > This paper explores the recent Cramming approach as a cost-effective way to locally train LMs, in one day and using one graphics processing unit (GPU). We show that the Cramming approach that was originally designed for English can be transposed to French, that the resulting models can be fine-tuned to domain-specific tasks in the French language, and that pre-training by including in-house data increases the performance of the models for journalism data. This research opens the path to the creation of LMs that are tailored to the specific needs of institutions that handle sensitive textual data in another language than English.
 
 ## Datasets
+To replicate the pretraining of the models presented in the paper, the datasets are presented in 30 json files of OSCAR and 1 json file of the text from RTBF corpus and are available online at: TODO. To replicate the pretraining of the model * **BERTinchamps *classic***, the 30 json files from OSCAR are required. To replicate the pretraining of the model * **BERTinchamps *rtbf***, the 29 first json files from OSCAR and the file from RTBF corpus are required.
 
 To exploit the code of the new tasks, some datasets are required in the *local_data* folder:
 * **cls-acl10-unprocessed**: The CLS dataset from FLUE benchmark is available on Zenodo: https://zenodo.org/records/3251672. To be used, you need to decompress the tar.gz archive you obtain and place the *cls-acl10-unprocessed* folder directly in the *local_data* folder.
