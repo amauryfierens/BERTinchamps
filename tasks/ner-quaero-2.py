@@ -28,9 +28,9 @@ def launch(cfg):
     batch_size = 8
     EPOCHS = 100
 
-    pre_path = "/TODO/BERTinchamps/"
+    pre_path = ""
     # Directory containing your JSON files => choices : MEDLINE_JSON, EMEA_JSON
-    dir_path = pre_path+'local_data/tmp/EMEA_JSON/'
+    dir_path = pre_path+f'local_data/tmp/{cfg.quaero}_JSON/'
 
     train_name = "train.json"
     val_name = "dev.json"
@@ -67,27 +67,29 @@ def launch(cfg):
     print(label2id)
     print(id2label)
 
-    ######### BERTinchamps architecture loading => comment if you want to use a different architecture #########
-    tokenizer, cfg_arch, model_file = cramming.utils.find_pretrained_checkpoint(cfg)
+    
+    if cfg.model=="BERTinchamps":
+        ######### BERTinchamps architecture loading #########
+        tokenizer, cfg_arch, model_file = cramming.utils.find_pretrained_checkpoint(cfg)
 
-    setup = cramming.utils.system_startup(cfg)
+        setup = cramming.utils.system_startup(cfg)
+            
+        thismodel = cramming.construct_model(cfg_arch, tokenizer.vocab_size, downstream_classes=len(label_list), for_token_classif=True)
+        model_engine, _, _, _ = cramming.load_backend(thismodel, None, tokenizer, cfg.eval, cfg.impl, setup=setup)
+        # Comment if there is no checkpoints
+        model_engine.load_checkpoint(cfg_arch, model_file)
+        model_engine.train()
+        model = model_engine.model
         
-    thismodel = cramming.construct_model(cfg_arch, tokenizer.vocab_size, downstream_classes=len(label_list), for_token_classif=True)
-    model_engine, _, _, _ = cramming.load_backend(thismodel, None, tokenizer, cfg.eval, cfg.impl, setup=setup)
-    # Comment if there is no checkpoints
-    model_engine.load_checkpoint(cfg_arch, model_file)
-    model_engine.train()
-    model = model_engine.model
-    #############################################################################################################
-    
-    ######### Camembert architecture loading => comment if you want to use a different architecture #########
-    # tokenizer = AutoTokenizer.from_pretrained("camembert-base")
-    # model = AutoModelForTokenClassification.from_pretrained("camembert-base", num_labels=len(label_list))
-    #########################################################################################################
-    
-    ######### Dr-BERT architecture loading => comment if you want to use a different architecture #########
-    # tokenizer = AutoTokenizer.from_pretrained("Dr-BERT/DrBERT-7GB")
-    # model = AutoModelForTokenClassification.from_pretrained("Dr-BERT/DrBERT-7GB", num_labels=len(label_list))
+    elif cfg.model=="camembert":
+        ######### Camembert architecture loading #########
+        tokenizer = AutoTokenizer.from_pretrained("camembert-base")
+        model = AutoModelForTokenClassification.from_pretrained("camembert-base", num_labels=len(label_list))
+
+    elif cfg.model=="DrBERT":
+        ######### Dr-BERT architecture loading #########
+        tokenizer = AutoTokenizer.from_pretrained("Dr-BERT/DrBERT-7GB")
+        model = AutoModelForTokenClassification.from_pretrained("Dr-BERT/DrBERT-7GB", num_labels=len(label_list))
     
     model.config.label2id = label2id
     model.config.id2label = id2label
@@ -129,7 +131,12 @@ def launch(cfg):
     dev_tokenized_datasets = dev_dataset.map(tokenize_and_align_labels, batched=True, keep_in_memory=True)
     test_tokenized_datasets = test_dataset.map(tokenize_and_align_labels, batched=True, keep_in_memory=True)
 
-    output_name = f"DrBERT-QUAERO-{task}-{str(uuid.uuid4().hex)}"
+    if cfg.model=="BERTinchamps":
+        output_name = f"BERTinchamps-QUAERO-{task}-{str(uuid.uuid4().hex)}"
+    elif cfg.model=="camembert":
+        output_name = f"camembert-QUAERO-{task}-{str(uuid.uuid4().hex)}"
+    elif cfg.model=="DrBERT":
+        output_name = f"DrBERT-QUAERO-{task}-{str(uuid.uuid4().hex)}"
 
     args = TrainingArguments(
         output_name,

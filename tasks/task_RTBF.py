@@ -22,12 +22,12 @@ def launch(cfg):
     batch_size = 32
     EPOCHS = 20
     
-    # Directory containing your JSON file => replace the TODO with the path to your data
-    pre_path = "/TODO/BERTinchamps/"
+    # Directory containing your JSON file
+    pre_path = ""
     dir_path = 'local_data/Testing_corpora/'
     
     ks = cfg.nbrs
-    if cfg.classic==False:
+    if cfg.model=="BERTinchamps":
         tokenizer, cfg_arch, model_file = cramming.utils.find_pretrained_checkpoint(cfg)
         setup = cramming.utils.system_startup(cfg)
         
@@ -67,9 +67,8 @@ def launch(cfg):
 
         label2id, id2label = getConfig(label_list)
         
-        if cfg.classic==False:
+        if cfg.model=="BERTinchamps":
             
-                
             thismodel = cramming.construct_model(cfg_arch, tokenizer.vocab_size, downstream_classes=len(label_list))
             model_engine, _, _, _ = cramming.load_backend(thismodel, None, tokenizer, cfg.eval, cfg.impl, setup=setup)
             # Comment if there is no checkpoints
@@ -77,7 +76,7 @@ def launch(cfg):
             #model_engine.train()
             model = model_engine.model
         
-        else:
+        elif cfg.model=="camembert":
             tokenizer = AutoTokenizer.from_pretrained("camembert-base")
             model = AutoModelForSequenceClassification.from_pretrained("camembert-base", num_labels=len(label_list))
         
