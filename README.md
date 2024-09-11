@@ -48,6 +48,13 @@ For the evaluation of both models on FLUE benchmark, two possibilities:
 
 ### QUAEROFrenchMed: MEDLINE and EMEA
 
+For preprocessing of QUAEROFrenchMed Corpus and evaluation of both models on it:
+* Preprocessing of QUAEROFrenchMed:
+  * `python tasks/ner-quaero.py`
+* Evaluation on EMEA:
+  * `python tasks/ner-quaero-2.py impl.microbatch_size=32 quaero=EMEA`
+* Evaluation on MEDLINE
+  * 
 ### RTBF: 
 
 
