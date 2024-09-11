@@ -39,7 +39,9 @@ To run the evaluation tasks and reproduce the experiments we performed, you can 
 
 For the evaluation of both models on FLUE benchmark, two possibilities:
 * Evaluation on the 3 datasets from FLUE with the same hyperparameters:
-  ```python eval.py eval=FLUE name=the_name_of_one_of_the_models base_dir=/your/folder/where/models/are/stored eval.checkpoints=latest impl.microbatch_size=16 impl.shuffle_in_dataloader=True eval.scheduler=cosine-decay eval.epochs=5 eval.batch_size=16 eval.optim.lr=4e-5```
+  ```
+  python eval.py eval=FLUE name=the_name_of_one_of_the_models base_dir=/your/folder/where/models/are/stored eval.checkpoints=latest impl.microbatch_size=16 impl.shuffle_in_dataloader=True eval.scheduler=cosine-decay eval.epochs=5 eval.batch_size=16 eval.optim.lr=4e-5
+  ```
 * Evaluation of each dataset
   * *CLS*: `python eval.py eval=CLS name=the_name_of_one_of_the_models base_dir=/your/folder/where/models/are/stored eval.checkpoints=latest impl.microbatch_size=16 impl.shuffle_in_dataloader=True eval.scheduler=cosine-decay eval.epochs=5 eval.batch_size=16 eval.optim.lr=4e-5`
   * *PAWS-X*: `python eval.py eval=PAWS-X name=the_name_of_one_of_the_models base_dir=/your/folder/where/models/are/stored eval.checkpoints=latest impl.microbatch_size=16 impl.shuffle_in_dataloader=True eval.scheduler=cosine-decay eval.epochs=10 eval.batch_size=16 eval.optim.lr=4e-5`
