@@ -1,3 +1,4 @@
+# (c) Amaury Fierens, UCLouvain
 # single/multi GPU, sane(?) pytorch parameters
 name: torch-default
 defaults:
