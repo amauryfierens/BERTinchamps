@@ -1,3 +1,4 @@
+# (c) Amaury Fierens, UCLouvain
 XNLI:
   collection: flue
   regression: False
