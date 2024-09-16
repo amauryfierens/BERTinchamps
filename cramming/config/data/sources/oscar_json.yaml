@@ -1,4 +1,4 @@
-#
+# (c) Amaury Fierens, UCLouvain
 oscar_json:
   provider: local
   file_type: json
