@@ -1,4 +1,4 @@
-#
+# (c) Amaury Fierens, UCLouvain
 rtbf_corpus:
   provider: local
   file_type: json
