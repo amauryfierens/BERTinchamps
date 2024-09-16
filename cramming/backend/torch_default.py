@@ -1,3 +1,4 @@
+# (c) Amaury Fierens, UCLouvain
 """Basic training backend engine for pytorch training with all bells and whistles.
 
 Interface set up to be compliant with the deepspeed engine interface.
