@@ -1,3 +1,4 @@
+# (c) Amaury Fierens, UCLouvain
 # Configuration defaults
 # Settings are separated into hyperparameters for architecture, data, implementation and train/eval hyperparams
 defaults:
