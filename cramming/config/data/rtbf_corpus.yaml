@@ -1,4 +1,4 @@
-# This is a slice of the pile, loaded from a local source
+# (c) Amaury Fierens, UCLouvain
 name: rtbf_corpus
 defaults:
   - sources:
