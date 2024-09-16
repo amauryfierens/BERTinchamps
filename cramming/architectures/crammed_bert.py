@@ -1,3 +1,4 @@
+# (c) Amaury Fierens, UCLouvain
 """Rewrite a simplified BERT version based on the huggingface BERT but allow for scripting to all kinds of variations."""
 import torch
 from transformers import PretrainedConfig, PreTrainedModel
