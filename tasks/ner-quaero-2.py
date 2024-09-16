@@ -1,5 +1,5 @@
 # Inspired by this blog post on medium from Yanis Labrak: https://medium.com/@yanis.labrak/how-to-train-drbert-on-french-biomedical-named-entity-recognition-ner-using-huggingface-and-c84c91456d56
-
+# (c) Amaury Fierens, UCLouvain
 
 from datasets import load_dataset
 import os
