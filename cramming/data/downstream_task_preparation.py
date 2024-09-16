@@ -1,3 +1,4 @@
+# (c) Amaury Fierens, UCLouvain
 """Prepare downstream tasks evaluations."""
 import torch
 import datasets
