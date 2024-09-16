@@ -1,3 +1,4 @@
+# (c) Amaury Fierens, UCLouvain
 defaults:
   - optim: adam
   - tasks:
