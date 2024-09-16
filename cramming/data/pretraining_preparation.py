@@ -1,3 +1,4 @@
+# (c) Amaury Fierens, UCLouvain
 """Prepare and preprocess datasets."""
 
 import torch
