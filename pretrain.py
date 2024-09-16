@@ -1,3 +1,4 @@
+# (c) Amaury Fierens, UCLouvain
 """Script for a pretraining run."""
 
 import torch
