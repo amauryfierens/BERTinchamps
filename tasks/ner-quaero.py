@@ -1,3 +1,4 @@
+# (c) Amaury Fierens, UCLouvain
 import os
 import json
 import spacy
