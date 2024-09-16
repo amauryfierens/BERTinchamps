@@ -1,3 +1,4 @@
+# (c) Amaury Fierens, UCLouvain
 """Script to evaluate a pretrained model."""
 import os
 os.environ["CUDA_VISIBLE_DEVICES"] = "0, 1"
